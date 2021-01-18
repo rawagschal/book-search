@@ -22,7 +22,7 @@ const resolvers = {
 
             return { token, user };
         },
-        // user new authorized user data w/token to login
+        // use new authorized user data w/token to login
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -49,7 +49,19 @@ const resolvers = {
                 return updatedUser;
             } 
             throw new AuthenticationError("You need to be logged in to save a book!");
-        }
+        },
+
+        removeBook: async (parent, { bookData }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findByIdAndUpdate(
+                   { _id: context.user._id }, 
+                   { $pull: { savedBooks: bookData } },
+                    { new: true }
+                );
+                return updatedUser;
+            } 
+            throw new AuthenticationError("You need to be logged in to remove a book!");
+        },
     }
 };
 

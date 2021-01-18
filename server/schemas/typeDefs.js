@@ -39,7 +39,7 @@ const typeDefs = gql `
     }
 
     type Mutation {
-        # login and createUser reference utils/Auth for JWT
+        # login and addUser reference utils/Auth for JWT
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         saveBook(bookData: BookInput!): User

@@ -52,6 +52,9 @@ const SearchBooks = () => {
     }
   };
 
+// !!! Use the Apollo useMutation() Hook to execute the SAVE_BOOK mutation in the handleSaveBook() function instead of the saveBook() function imported from the API file.
+// !!! Make sure you keep the logic for saving the book's ID to state in the try...catch block!
+
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id

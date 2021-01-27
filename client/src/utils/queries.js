@@ -1,6 +1,6 @@
 // This will hold the query GET_ME, which will execute the me query set up using Apollo Server.
 
-const { gql } = require('apollo-server-express');
+import gql from 'graphql-tag';
 
 export const GET_ME = gql`
     {

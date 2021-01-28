@@ -9,7 +9,7 @@ import { removeBookId } from '../utils/localStorage';
 const SavedBooks = () => {
     // don't need useEffect because we are using GET_ME QUERY instead
   // define userData as the response from the GET_ME query
-  const { loading, data } = useQuery(GET_ME);
+  const { loading, data} = useQuery(GET_ME);
 
   // define removeBook function as the response from the REMOVE_BOOK mutation
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
@@ -37,8 +37,8 @@ const SavedBooks = () => {
       
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
-      console.log(data);
-      console.log(error);
+      // console.log(data);
+      // console.log(error);
     } catch (err) {
       console.error(err);
     }
@@ -59,7 +59,7 @@ const SavedBooks = () => {
       <Container>
         <h2>
           {userData.savedBooks?.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
+            ? `Viewing ${userData.savedBooks?.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>

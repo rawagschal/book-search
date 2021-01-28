@@ -10,7 +10,16 @@ import ApolloClient from 'apollo-boost';
 
 //establish connection to back-end server's /graphql endpoint at port 3001
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql'
+  request: (operation) => {
+    const token = localStorage.getItem('id_token');
+
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    });
+  },
+  uri: '/graphql',
 });
 
 

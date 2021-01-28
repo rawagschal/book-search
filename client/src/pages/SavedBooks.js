@@ -9,13 +9,14 @@ import { removeBookId } from '../utils/localStorage';
 const SavedBooks = () => {
     // don't need useEffect because we are using GET_ME QUERY instead
   // define userData as the response from the GET_ME query
-  const userData = useQuery(GET_ME);
+  const { loading, data } = useQuery(GET_ME);
 
   // define removeBook function as the response from the REMOVE_BOOK mutation
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
   // use this to determine if there is no user data
-  const userDataLength = Object.keys(userData).length;
+  const userData = data?.me || {};
+  console.log(userData);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -44,7 +45,7 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 
@@ -57,12 +58,12 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
+          {userData.savedBooks?.length
             ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+          {userData.savedBooks?.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}

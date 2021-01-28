@@ -9,18 +9,18 @@ import { removeBookId } from '../utils/localStorage';
 const SavedBooks = () => {
     // don't need useEffect because we are using GET_ME QUERY instead
   // define userData as the response from the GET_ME query
-  const { loading, data} = useQuery(GET_ME);
+  const { loading, data } = useQuery(GET_ME);
 
   // define removeBook function as the response from the REMOVE_BOOK mutation
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
   // use this to determine if there is no user data
   const userData = data?.me || {};
-  console.log(userData);
+  // console.log(userData);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
-    // console.log(bookId);
+    console.log(bookId);
     // check login
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -30,7 +30,7 @@ const SavedBooks = () => {
 
     try {
       const { data } = await removeBook({
-        vairables: { bookId },
+        variables: { bookId },
       });
 
       
